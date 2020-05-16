@@ -1,10 +1,13 @@
 package com.example.listmaker
 
 import android.os.Bundle
+import android.text.InputType
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +28,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab.setOnClickListener {
+//            val adapterTodo = listRecyclerview.adapter as TodoListAdapter
+//            adapterTodo.addNewItem()
+            showCreateDialog()
         }
 
 
@@ -48,5 +51,27 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showCreateDialog(){
+        val dialogTitle = getString(R.string.name_of_list)
+        val positiveButtonTitle = getString(R.string.create_list)
+        val myDialog = AlertDialog.Builder(this)
+        val todoListEditText = EditText(this)
+
+        todoListEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+
+        with(myDialog){
+            setTitle(dialogTitle)
+            setView(todoListEditText)
+
+            setPositiveButton(positiveButtonTitle){
+                dialog, _ ->
+                    dialog.dismiss()
+            }
+
+            create().show()
+        }
+
     }
 }

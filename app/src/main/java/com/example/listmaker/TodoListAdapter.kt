@@ -8,7 +8,12 @@ import kotlinx.android.synthetic.main.todo_list_view_holder.view.*
 
 class TodoListAdapter: RecyclerView.Adapter<TodoListAdapter.ListViewHolder>() {
 
-    private val todoList = arrayOf("Android Development", "House Work", "House 46")
+    private var todoList = mutableListOf("Android Development", "House Work", "House 46")
+
+    fun addNewItem(){
+        todoList.add("Todo List " + (todoList.size +1))
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_list_view_holder, parent, false)
