@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val adapterList = TodoListAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         with(listRecyclerview){
             layoutManager = LinearLayoutManager(this@MainActivity)
-            this.adapter = TodoListAdapter()
+            this.adapter = adapterList
         }
 
 
@@ -67,6 +69,8 @@ class MainActivity : AppCompatActivity() {
 
             setPositiveButton(positiveButtonTitle){
                 dialog, _ ->
+                val adapter = listRecyclerview.adapter as TodoListAdapter
+                adapter.addNewItem(todoListEditText.text.toString())
                     dialog.dismiss()
             }
 

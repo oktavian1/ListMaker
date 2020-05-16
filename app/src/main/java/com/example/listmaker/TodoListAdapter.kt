@@ -10,9 +10,11 @@ class TodoListAdapter: RecyclerView.Adapter<TodoListAdapter.ListViewHolder>() {
 
     private var todoList = mutableListOf("Android Development", "House Work", "House 46")
 
-    fun addNewItem(){
-        todoList.add("Todo List " + (todoList.size +1))
+    fun addNewItem(listName : String = ""){
+        if (listName.isEmpty()) todoList.add("Todo List " + (todoList.size +1))
+        else todoList.add(listName)
         notifyDataSetChanged()
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
